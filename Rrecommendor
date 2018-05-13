@@ -1,0 +1,51 @@
+from sklearn.neighbors.nearest_centroid import NearestCentroid
+import numpy as np
+import pprint
+from  pymongo import MongoClient
+client=MongoClient()
+db = client.user
+if(db):
+    print("success")
+col=db.profiles
+if(col):
+    print("profiles")
+res=col.find()
+sum=0
+a_r=list()
+c_r=list()
+r_r=list()
+sc_r=list()
+f_r=list()
+h_r=list()
+ll=list()
+for i in res:
+    q=list(i.values())
+    sum1=0
+    sum=(q[3:])
+    for k in sum:
+       sum1=sum1+int(k)
+    a_r.append((int(q[3])/sum1))
+    c_r.append((int(q[4])/sum1))
+    r_r.append((int(q[5])/sum1))
+    sc_r.append((int(q[6])/sum1))
+    h_r.append((int(q[7])/sum1))
+    f_r.append((int(q[8])/sum1))
+
+    print("adventure ratio  ",a_r)
+    print("crime ratio  ",c_r)
+    print("romance ratio  ",r_r)
+    print("sci-fi ratio  ",sc_r)
+    print("horror ratio  ",h_r)
+    print("fantasy ratio  ",f_r)
+
+X = np.array([[0.1078,0.0645,0.587,.088064,0.076322,0.07626], [0.04, 0.05,0.01,0.01,0.34,-0.23], [-.03, -0.02,0.05,0.23,0.45,-0.34], [1, 13,5,0.067,0.283,0.72632], [0.22, 1,6,0.272,0.327,0.526], [3, 22,-1,0.992,0.789,0.675]])
+y = np.array([1, 2, 3, 4, 5, 6])
+clf = NearestCentroid()
+clf.fit(X, y)
+for k in range(len(a_r)):
+    NearestCentroid(metric='euclidean', shrink_threshold=None)
+    a=clf.predict([[float(a_r[k]),float(c_r[k]),float(r_r[k]),float(sc_r[k]),float(h_r[k]),float(f_r[k])]])
+    if a==1:
+         print("user:",k,"  belongs to Romantic Adventure")
+
+
