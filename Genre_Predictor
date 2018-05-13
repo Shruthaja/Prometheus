@@ -1,0 +1,133 @@
+from nltk.tokenize import RegexpTokenizer           #Importing tokenizer that converts the text file contents to tokens.
+from nltk.corpus import stopwords                   #The nltk module has a Stopwords list,the list can be appended with more data in the txt file .
+from pymongo import MongoClient
+import timeit
+import re
+tokenizer = RegexpTokenizer(r'\w+\'*[a-z]*')                 #defining regular expressions to tell what to tokenize,here all words seperated by a space are tokenized.
+stop_words = set(stopwords.words('english'))
+f=open('/home/shruthaja/Downloads/Bool/bros')
+BookParser=f.read()
+BookParser=BookParser.lower()
+BookParser=tokenizer.tokenize(BookParser)
+print("length----",len(BookParser))
+start=timeit.timeit()
+book_list=list()
+for  i in BookParser:
+    if i not in  stop_words:
+        book_list.append(str(i))
+d=dict()
+book_words_set=set(book_list)
+count=0
+db=dict()
+for unique in book_words_set:
+    db[unique]=1
+    pattern=re.compile(unique)
+    res=pattern.findall(str(book_list))
+    d[unique]=len(res)
+
+
+def fanatasy_count():
+    flag = {}
+    Adventure_file_handler = open("/home/shruthaja/Downloads/Bool/fantasy")
+    Adventure_Keyword = Adventure_file_handler.read().lower()
+    Adventure_Keyword= tokenizer.tokenize(Adventure_Keyword)
+    for word in Adventure_Keyword:
+        flag[word] = 0
+    adventure_count = 0
+    print(flag)
+    for word in Adventure_Keyword:
+        if word in book_words_set and flag[word] == 0:
+            print(word, ":", d[word])
+            adventure_count = adventure_count + d[word]
+            flag[word] = 1
+    return adventure_count
+def horror_count():
+    flag = {}
+    Adventure_file_handler = open("/home/shruthaja/Downloads/Bool/horror")
+    Adventure_Keyword = Adventure_file_handler.read().lower()
+    Adventure_Keyword= tokenizer.tokenize(Adventure_Keyword)
+    for word in Adventure_Keyword:
+        flag[word] = 0
+    adventure_count = 0
+    print(flag)
+    for word in Adventure_Keyword:
+        if word in book_words_set and flag[word] == 0:
+            print(word, ":", d[word])
+            adventure_count = adventure_count + d[word]
+            flag[word] = 1
+    return adventure_count
+def crime_count():
+    flag = {}
+    Adventure_file_handler = open("/home/shruthaja/Downloads/Bool/crime_words")
+    Adventure_Keyword = Adventure_file_handler.read().lower()
+    Adventure_Keyword= tokenizer.tokenize(Adventure_Keyword)
+    for word in Adventure_Keyword:
+        flag[word] = 0
+    adventure_count = 0
+    print(flag)
+    for word in Adventure_Keyword:
+        if word in book_words_set and flag[word] == 0:
+            print(word, ":", d[word])
+            adventure_count = adventure_count + d[word]
+            flag[word] = 1
+    return adventure_count
+def scifi_count():
+    flag = {}
+    Adventure_file_handler = open("/home/shruthaja/Downloads/Bool/scifi")
+    Adventure_Keyword = Adventure_file_handler.read().lower()
+    Adventure_Keyword= tokenizer.tokenize(Adventure_Keyword)
+    for word in Adventure_Keyword:
+        flag[word] = 0
+    adventure_count = 0
+    print(flag)
+    for word in Adventure_Keyword:
+        if word in book_words_set and flag[word] == 0:
+            print(word, ":", d[word])
+            adventure_count = adventure_count + d[word]
+            flag[word] = 1
+    return adventure_count
+def adventure_count():
+    flag = {}
+    Adventure_file_handler = open("/home/shruthaja/Downloads/Bool/adventure")
+    Adventure_Keyword = Adventure_file_handler.read().lower()
+    Adventure_Keyword= tokenizer.tokenize(Adventure_Keyword)
+    for word in Adventure_Keyword:
+        flag[word] = 0
+    adventure_count = 0
+    print(flag)
+    for word in Adventure_Keyword:
+        if word in book_words_set and flag[word] == 0:
+            print(word, ":", d[word])
+            adventure_count = adventure_count + d[word]
+            flag[word] = 1
+    return adventure_count
+def romance_count():
+    flag = {}
+    Adventure_file_handler = open("/home/shruthaja/Downloads/Bool/romance")
+    Adventure_Keyword = Adventure_file_handler.read().lower()
+    Adventure_Keyword= tokenizer.tokenize(Adventure_Keyword)
+    for word in Adventure_Keyword:
+        flag[word] = 0
+    adventure_count = 0
+    print(flag)
+    for word in Adventure_Keyword:
+        if word in book_words_set and flag[word] == 0:
+            print(word, ":", d[word])
+            adventure_count = adventure_count + d[word]
+            flag[word] = 1
+    return adventure_count
+r=romance_count()
+a=adventure_count()
+sci=scifi_count()
+c=crime_count()
+h=horror_count()
+f=fanatasy_count()
+stop=timeit.timeit()
+print("romance-count:",r)
+print("adventure-count:",a)
+print ("scifi-count:",sci)
+print("crime-count:",c)
+print("fantasy-count:",f)
+print("horror-count",h)
+print(stop-start)
+
