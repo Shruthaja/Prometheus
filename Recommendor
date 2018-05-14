@@ -1,19 +1,24 @@
-from flask import Flask,jsonify
+from flask import Flask,jsonify,send_from_directory
+import django
 import  json
 from sklearn.neighbors.nearest_centroid import NearestCentroid
 import numpy as np
 import pprint
 from  pymongo import MongoClient
+s1=open("/home/shruthaja/Downloads/asymmetry/test.htm")
+s=s1.read()
 client=MongoClient()
 db = client.user
 app = Flask(__name__)
 @app.route('/')
 def index():
- return "Welcome!"
+ return "Hello world!"
 
+@app.route('/accounts')
+def accounts():
+    return "yolo"
 
-
-@app.route('/recommend')
+@app.route('/login')
 def login():
     if (db):
         print("success")
@@ -63,11 +68,19 @@ def login():
 
         if a == 1:
             print("user:", k, "  belongs to Romantic Adventure")
-            l = ''
-            l=k
-    new_list=['book1','book2','book3']
-    j={"book":"way to get it"}
-    return jsonify(j)
+            new_list = ['book1', 'book2', 'book3']
+            j = {"book": "way to get it"}
+            test = 'first book' + "<br>" + "second book" + "<br>" + "third book"
 
+    htm=""""<html>
+                <head>
+                <link href="/home/shruthaja/Desktop/css/bootstrap.css"
+                </head>
+                <body ><p class="solid" style="color:purple;font-size:16;">"""+s+"""
+                </p></body>
+                </html>"""
+   # return send_from_directory('/home/shruthaja/Downloads/asymmetry/','test.htm')
+  #  return ("<p style='color:rebeccapurple;'>"+test+"</p>")
 
+    return (htm)
 app.run()
