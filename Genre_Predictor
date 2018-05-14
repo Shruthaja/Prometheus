@@ -7,21 +7,6 @@ tokenizer = RegexpTokenizer(r'\w+\'*[a-z]*')                 #defining regular e
 stop_words = set(stopwords.words('english'))
 f=open('/home/shruthaja/Downloads/Bool/bros')
 BookParser=f.read()                                   
-
-
-
-
-
-
-
-
-///changed this
-
-
-
-
-
-
 BookParser=BookParser.lower()
 BookParser=tokenizer.tokenize(BookParser)
 print("length----",len(BookParser))
